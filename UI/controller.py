@@ -10,6 +10,7 @@ class Controller:
         # the model, which implements the logic of the program and holds the data
         self._model = model
         self._CDS=set()
+        self._pd= None
 
     def get_corsi_periodo(self,e):
         if self._pd is None:
@@ -36,10 +37,13 @@ class Controller:
         self._view.list_risulatati.controls.clear()
         codice_corso = self._view.txt_codice_corso.value
         if codice_corso == "":
-            self._view.create_alert("codice_corso errato")
+            self._view.create_alert("scegliere un codice corso")
             return
         else:
             corso_cercato = self._model.restituisci_corso(codice_corso)
+            if corso_cercato is None:
+                self._view.create_alert("codice corso errato")
+                return
             studenti = corso_cercato.get_studenti()
             for studente in studenti:
                 self._CDS.add(studente.CDS)
@@ -49,16 +53,19 @@ class Controller:
                     if studente.CDS==elemento:
                         self._view.list_risulatati.controls.append(ft.Text(studente.__str__()))
             self._view.update_page()
-            return
+
 
     def get_studenti_corso(self,e):
         self._view.list_risulatati.controls.clear()
         codice_corso=self._view.txt_codice_corso.value
-        if codice_corso =="":
-            self._view.create_alert("codice_corso errato")
+        if codice_corso =="" :
+            self._view.create_alert("scegliere un codice corso")
             return
         else:
             corso_cercato=self._model.restituisci_corso(codice_corso)
+            if corso_cercato is None:
+                self._view.create_alert("codice_corso errato")
+                return
             studenti=corso_cercato.get_studenti()
             for studente in studenti:
                 self._view.list_risulatati.controls.append(ft.Text(studente.__str__()))

@@ -17,8 +17,8 @@ class Model:
     def restituisci_corso(self,codice):
         if self._corsi =={}:
             self.carica_corsi()
-            return self._corsi[codice]
+            return self._corsi.get(codice)
         else:
-            return self._corsi[codice]
+            return self._corsi.get(codice)
 
 
