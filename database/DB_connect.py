@@ -7,6 +7,7 @@ class DBConnect:
     # we keep the pool of connections as a class attribute, not an instance attribute
     _cnxpool = None
 
+
     def __init__(self):
         raise RuntimeError('Do not create an instance, use the class method get_connection()!')
 
